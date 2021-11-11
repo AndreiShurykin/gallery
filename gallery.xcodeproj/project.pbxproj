@@ -14,6 +14,10 @@
 		00485D36273D172A0075F874 /* gallery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00485D34273D172A0075F874 /* gallery.xcdatamodeld */; };
 		00485D38273D172C0075F874 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00485D37273D172C0075F874 /* Assets.xcassets */; };
 		00485D3B273D172C0075F874 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00485D39273D172C0075F874 /* LaunchScreen.storyboard */; };
+		00485D43273D22C20075F874 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00485D42273D22C20075F874 /* DataManager.swift */; };
+		00485D47273D26620075F874 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00485D46273D26620075F874 /* Photo.swift */; };
+		00485D49273D2C200075F874 /* PhotoLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00485D48273D2C200075F874 /* PhotoLib.swift */; };
+		00485D4B273D4ED60075F874 /* DynamicCodingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00485D4A273D4ED60075F874 /* DynamicCodingKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		00485D37273D172C0075F874 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00485D3A273D172C0075F874 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00485D3C273D172C0075F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00485D42273D22C20075F874 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		00485D46273D26620075F874 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		00485D48273D2C200075F874 /* PhotoLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLib.swift; sourceTree = "<group>"; };
+		00485D4A273D4ED60075F874 /* DynamicCodingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCodingKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 		00485D2A273D172A0075F874 /* gallery */ = {
 			isa = PBXGroup;
 			children = (
+				00485D44273D22CC0075F874 /* Support files */,
 				00485D2B273D172A0075F874 /* AppDelegate.swift */,
 				00485D2D273D172A0075F874 /* SceneDelegate.swift */,
 				00485D2F273D172A0075F874 /* ViewController.swift */,
@@ -68,6 +77,25 @@
 				00485D34273D172A0075F874 /* gallery.xcdatamodeld */,
 			);
 			path = gallery;
+			sourceTree = "<group>";
+		};
+		00485D44273D22CC0075F874 /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				00485D45273D25D90075F874 /* JSON parts */,
+				00485D42273D22C20075F874 /* DataManager.swift */,
+			);
+			path = "Support files";
+			sourceTree = "<group>";
+		};
+		00485D45273D25D90075F874 /* JSON parts */ = {
+			isa = PBXGroup;
+			children = (
+				00485D4A273D4ED60075F874 /* DynamicCodingKeys.swift */,
+				00485D46273D26620075F874 /* Photo.swift */,
+				00485D48273D2C200075F874 /* PhotoLib.swift */,
+			);
+			path = "JSON parts";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,10 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00485D49273D2C200075F874 /* PhotoLib.swift in Sources */,
 				00485D36273D172A0075F874 /* gallery.xcdatamodeld in Sources */,
+				00485D43273D22C20075F874 /* DataManager.swift in Sources */,
+				00485D47273D26620075F874 /* Photo.swift in Sources */,
 				00485D30273D172A0075F874 /* ViewController.swift in Sources */,
 				00485D2C273D172A0075F874 /* AppDelegate.swift in Sources */,
 				00485D2E273D172A0075F874 /* SceneDelegate.swift in Sources */,
+				00485D4B273D4ED60075F874 /* DynamicCodingKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
