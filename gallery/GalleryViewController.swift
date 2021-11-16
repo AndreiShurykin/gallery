@@ -8,7 +8,7 @@
 import UIKit
 
 class GalleryViewController: UIViewController {
-
+    
     let viewModel: GalleryViewModelProtocol
     
     init(viewModel: GalleryViewModelProtocol) {
@@ -20,27 +20,36 @@ class GalleryViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    let layout = UICollectionViewFlowLayout()
+    var galleryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addCollectionView()
     }
     
     func addCollectionView() {
-        let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-        let galleryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        galleryCollectionView.collectionViewLayout = layout
         galleryCollectionView.isPagingEnabled = true
+        galleryCollectionView.backgroundColor = .blue
         layout.scrollDirection = .horizontal
-        galleryCollectionView.backgroundColor = .black
+        galleryCollectionView.backgroundColor = .white
         self.view.addSubview(galleryCollectionView)
         galleryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        var galleryColloctionViewConstraints = [NSLayoutConstraint]()
-        galleryColloctionViewConstraints.append(NSLayoutConstraint(item: galleryCollectionView, attribute: .leading, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 0))
-        galleryColloctionViewConstraints.append(NSLayoutConstraint(item: galleryCollectionView, attribute: .width, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .width, multiplier: 1, constant: 0))
-        galleryColloctionViewConstraints.append(NSLayoutConstraint(item: galleryCollectionView, attribute: .bottom, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0))
-        galleryColloctionViewConstraints.append(NSLayoutConstraint(item: galleryCollectionView, attribute: .height, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .height, multiplier: 1, constant: 0))
-        NSLayoutConstraint.activate(galleryColloctionViewConstraints)
+        let galleryCollectionViewConstraints = [
+            galleryCollectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            galleryCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            galleryCollectionView.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1),
+            galleryCollectionView.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 1)
+        ]
+        NSLayoutConstraint.activate(galleryCollectionViewConstraints)
         galleryCollectionView.delegate = self
         galleryCollectionView.dataSource = self
         galleryCollectionView.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -68,6 +77,7 @@ extension GalleryViewController: UICollectionViewDataSource {
         cell.setPhotoUrlTextViewText(viewModel.photoObjects[indexPath.row].photoUrl)
         return cell
     }
+    
 }
 
 extension GalleryViewController: UICollectionViewDelegateFlowLayout {

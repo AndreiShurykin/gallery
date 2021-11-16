@@ -39,8 +39,11 @@ class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         
         imageView.backgroundColor = .white
         imageView.contentMode = .scaleAspectFit
+        imageView.addParallaxEffect(30)
+        imageView.roundCorners()
         
         containerView.backgroundColor = .blue
+        containerView.roundCorners()
         
         nameLabel.textAlignment = .center
         nameLabel.adjustsFontSizeToFitWidth = true
@@ -51,16 +54,16 @@ class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         let containerViewConstraints = [
             containerView.leftAnchor.constraint(equalTo: self.leftAnchor),
             containerView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 50),
+            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: containerViewHeight / 2),
             containerView.heightAnchor.constraint(equalToConstant: containerViewHeight)
         ]
         NSLayoutConstraint.activate(containerViewConstraints)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         let imageViewConstraints = [
-            imageView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            imageView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            imageView.topAnchor.constraint(equalTo: containerView.bottomAnchor),
+            imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
+            imageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30),
+            imageView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 30),
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50)
         ]
         NSLayoutConstraint.activate(imageViewConstraints)
