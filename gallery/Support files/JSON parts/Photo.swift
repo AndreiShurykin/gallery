@@ -9,15 +9,17 @@ import Foundation
 
 class Photo: Decodable {
     
-    internal init(photo_url: String?, user_name: String?, user_url: String?, colors: [String?]) {
-        self.photo_url = photo_url
-        self.user_name = user_name
-        self.user_url = user_url
+    internal init(photoUrl: String?, userName: String?, userUrl: String?, colors: [String?], imageID: String?) {
+        self.photoUrl = photoUrl
+        self.userName = userName
+        self.userUrl = userUrl
         self.colors = colors
+        self.imageID = imageID
     }
     
-    let photo_url: String?
-    let user_name: String?
-    let user_url: String?
+    let photoUrl: String?
+    let userName: String?
+    let userUrl: String?
     let colors: [String?]
+    var imageID: String?
 }

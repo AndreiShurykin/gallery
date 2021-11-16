@@ -9,9 +9,12 @@ import Foundation
 
 class PhotoLib: Decodable {
     
+    
     init(lib: [Photo]?) {
         self.array = lib
     }
+    
+    init() {}
     
     var array: [Photo]?
     
@@ -28,6 +31,7 @@ class PhotoLib: Decodable {
         for key in container.allKeys {
             // Decode Photo using key & keep decoded Photo object in tempArray
             let decodedObject = try container.decode(Photo.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
+            decodedObject.imageID = key.stringValue
             tempArray.append(decodedObject)
         }
         
@@ -35,6 +39,4 @@ class PhotoLib: Decodable {
         // Finish decoding all Photo objects. Thus assign tempArray to array.
         array = tempArray
     }
-    
-    
 }
