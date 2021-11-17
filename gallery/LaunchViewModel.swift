@@ -34,8 +34,7 @@ extension LaunchViewModel: LaunchViewModelProtocol {
                                 guard let fileName = item.imageID else {
                                     return
                                 }
-                                if DataManager.shared.isFileExist(fileName) {
-                                } else {
+                                if !DataManager.shared.isFileExist(fileName) {
                                     DataManager.shared.downloadPhoto(fileName) { data in
                                         DataManager.shared.savePhotoToFile(data, fileName)
                                     }

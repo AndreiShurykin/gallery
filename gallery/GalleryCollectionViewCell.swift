@@ -20,12 +20,12 @@ final class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate 
     }
     
     var imageView = UIImageView(frame: .zero)
-    var containerView = UIView(frame: .zero)
+    private var containerView = UIView(frame: .zero)
     var nameLabel = UILabel(frame: .zero)
     var userUrlTextView = UITextView(frame: .zero)
     var photoUrlTextView = UITextView(frame: .zero)
-    var webView = WKWebView(frame: .zero)
-    var backButton = UIButton(frame: .zero)
+    private var webView = WKWebView(frame: .zero)
+    private var backButton = UIButton(frame: .zero)
     
     func setupViews() {
         self.addSubview(imageView)

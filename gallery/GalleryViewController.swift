@@ -9,7 +9,7 @@ import UIKit
 
 final class GalleryViewController: UIViewController {
     
-    let viewModel: GalleryViewModelProtocol
+    private let viewModel: GalleryViewModelProtocol
     
     init(viewModel: GalleryViewModelProtocol) {
         self.viewModel = viewModel
@@ -24,8 +24,8 @@ final class GalleryViewController: UIViewController {
         return true
     }
     
-    let layout = UICollectionViewFlowLayout()
-    var galleryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
+    private let layout = UICollectionViewFlowLayout()
+    private var galleryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
     
     
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ final class GalleryViewController: UIViewController {
         addCollectionView()
     }
     
-    func addCollectionView() {
+    private func addCollectionView() {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         galleryCollectionView.collectionViewLayout = layout

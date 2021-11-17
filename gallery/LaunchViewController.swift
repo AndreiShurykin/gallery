@@ -20,7 +20,7 @@ final class LaunchViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let spinner: UIActivityIndicatorView = {
+    private let spinner: UIActivityIndicatorView = {
         let loginSpinner = UIActivityIndicatorView(style: .large)
         loginSpinner.translatesAutoresizingMaskIntoConstraints = false
         loginSpinner.hidesWhenStopped = true
