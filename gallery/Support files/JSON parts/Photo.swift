@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Photo: Decodable {
+final class Photo: Decodable {
     
     internal init(photoUrl: String?, userName: String?, userUrl: String?, colors: [String?], imageID: String?) {
         self.photoUrl = photoUrl

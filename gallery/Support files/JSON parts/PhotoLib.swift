@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PhotoLib: Decodable {
+final class PhotoLib: Decodable {
     
     
     init(lib: [Photo]?) {

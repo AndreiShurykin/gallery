@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GalleryViewController: UIViewController {
+final class GalleryViewController: UIViewController {
     
     let viewModel: GalleryViewModelProtocol
     
@@ -50,9 +50,9 @@ class GalleryViewController: UIViewController {
             galleryCollectionView.bottomAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.bottomAnchor, multiplier: 1)
         ]
         NSLayoutConstraint.activate(galleryCollectionViewConstraints)
+        galleryCollectionView.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         galleryCollectionView.delegate = self
         galleryCollectionView.dataSource = self
-        galleryCollectionView.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
 }
 
@@ -70,8 +70,14 @@ extension GalleryViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.setupViews()
-        let imageName = viewModel.photoObjects[indexPath.row].imageID
-        cell.imageView.image = viewModel.getStoredObject(imageName)
+        guard let imageName = viewModel.photoObjects[indexPath.row].imageID else {
+            return UICollectionViewCell()
+        }
+        if viewModel.isFileExist(imageName) {
+            cell.imageView.image = viewModel.getStoredObject(imageName)
+        } else {
+            cell.imageView.image = UIImage(named: "no-photo.png")
+        }
         cell.setLabelText(viewModel.photoObjects[indexPath.row].userName)
         cell.setUserURLTextViewText(viewModel.photoObjects[indexPath.row].userUrl)
         cell.setPhotoUrlTextViewText(viewModel.photoObjects[indexPath.row].photoUrl)

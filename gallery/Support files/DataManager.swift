@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class DataManager {
+final class DataManager {
     
     static var shared = DataManager()
     private init() {}
@@ -52,10 +52,8 @@ class DataManager {
             let localPhotos = try context.fetch(request)
             photos.forEach { photo in
                 var objectExistFlag = false
-                localPhotos.forEach { localPhoto in
-                    if photo.imageID == localPhoto.imageID {
-                        objectExistFlag = true
-                    }
+                if localPhotos.contains (where: { $0.imageID == photo.imageID }) {
+                    objectExistFlag = true
                 }
                 if !objectExistFlag {
                     let localPhoto = LocalPhoto(context: context)
@@ -99,47 +97,54 @@ class DataManager {
         }
     }
     
-    func downloadPhoto(_ photoObjects: [LocalPhoto], complition: @escaping (Int?) -> Void) {
-        var processCounter = 0
-        photoObjects.forEach { item in
-            guard let imageID = item.imageID else {
-                complition(nil)
-                return
-            }
-            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-            let url = NSURL(fileURLWithPath: path)
-            let fileName = imageID
-            if let pathComponent = url.appendingPathComponent(fileName) {
-                let filePath = pathComponent.path
-                let fileManager = FileManager.default
-                if !(fileManager.fileExists(atPath: filePath)) {
-                    let urlString = "http://dev.bgsoft.biz/task/" + imageID + ".jpg"
-                    guard let url = URL(string: urlString) else {
-                        complition(nil)
-                        return
-                    }
-                    var request = URLRequest(url: url)
-                    request.httpMethod = "GET"
-                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                        do {
-                            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-                            let fileURL = documentDirectory.appendingPathComponent(fileName)
-                            try data?.write(to: fileURL)
-                            processCounter += 1
-                            complition(processCounter)
-                            print(fileName + ": saved")
-                        } catch {
-                            print(error)
-                        }
-                        print(urlString + ": loaded")
-                    }
-                    task.resume()
-                } else {
-                    processCounter += 1
-                    complition(processCounter)
-                }
+    func isFileExist(_ fileName: String?) -> Bool {
+        guard let fileName = fileName else {
+            return false
+        }
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        if let pathComponent = url.appendingPathComponent(fileName) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if (fileManager.fileExists(atPath: filePath)) {
+                return true
             }
         }
+        return false
+    }
+    
+    func downloadPhoto(_ fileName: String?,_ complition: @escaping (Data?) -> Void) {
+        guard let fileName = fileName else {
+            complition(nil)
+            return
+        }
+        let urlString = "http://dev.bgsoft.biz/task/" + fileName + ".jpg"
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            complition(data)
+        }
+        task.resume()
+    }
+    
+    func savePhotoToFile(_ photoData: Data?,_ fileName: String?) {
+        guard let fileName = fileName else {
+            return
+        }
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask,
+                                                           appropriateFor:nil, create:false)
+            let fileURL = documentDirectory.appendingPathComponent(fileName)
+            try photoData?.write(to: fileURL)
+            print(fileName + ": saved")
+        } catch {
+            print(error)
+        }
+        
     }
     
     func getStoredObject<T>(_ fileName: String?) -> T? where T: ObjectFromFile {

@@ -11,7 +11,7 @@ protocol LaunchViewModelProtocol {
     func checkData(_ complition: @escaping() -> Void)
 }
 
-class LaunchViewModel {
+final class LaunchViewModel {
     
 }
 
@@ -24,14 +24,21 @@ extension LaunchViewModel: LaunchViewModelProtocol {
                     
                 case .success(let lib):
                     DispatchQueue.main.async {
+                        complition()
                         DataManager.shared.saveData(lib)
                         guard let localPhotos: [LocalPhoto] = DataManager.shared.fetchData() else {
                             return
                         }
                         DispatchQueue.global().async {
-                            DataManager.shared.downloadPhoto(localPhotos) { objectsCounter in
-                                if objectsCounter == localPhotos.count {
-                                    complition()
+                            localPhotos.forEach { item in
+                                guard let fileName = item.imageID else {
+                                    return
+                                }
+                                if DataManager.shared.isFileExist(fileName) {
+                                } else {
+                                    DataManager.shared.downloadPhoto(fileName) { data in
+                                        DataManager.shared.savePhotoToFile(data, fileName)
+                                    }
                                 }
                             }
                         }

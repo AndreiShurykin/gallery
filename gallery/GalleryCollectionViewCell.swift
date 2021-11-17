@@ -9,17 +9,10 @@ import UIKit
 import CloudKit
 import WebKit
 
-class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
+final class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(imageView)
-        self.addSubview(containerView)
-        self.containerView.addSubview(nameLabel)
-        self.containerView.addSubview(userUrlTextView)
-        self.containerView.addSubview(photoUrlTextView)
-        self.photoUrlTextView.delegate = self
-        self.userUrlTextView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -34,8 +27,14 @@ class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
     var webView = WKWebView(frame: .zero)
     var backButton = UIButton(frame: .zero)
     
-    
     func setupViews() {
+        self.addSubview(imageView)
+        self.addSubview(containerView)
+        self.containerView.addSubview(nameLabel)
+        self.containerView.addSubview(userUrlTextView)
+        self.containerView.addSubview(photoUrlTextView)
+        self.photoUrlTextView.delegate = self
+        self.userUrlTextView.delegate = self
         
         imageView.backgroundColor = .white
         imageView.contentMode = .scaleAspectFit
@@ -147,7 +146,7 @@ class GalleryCollectionViewCell: UICollectionViewCell, UITextViewDelegate {
         return false
     }
     
-    @objc func removeFromView() {
+    @objc private func removeFromView() {
         backButton.removeFromSuperview()
         webView.removeFromSuperview()
     }

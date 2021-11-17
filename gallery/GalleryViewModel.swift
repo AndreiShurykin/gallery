@@ -12,6 +12,7 @@ protocol GalleryViewModelProtocol {
     var arrayCount: Int { get }
     var photoObjects: [LocalPhoto] { get }
     func getStoredObject(_ fileName: String?) -> UIImage
+    func isFileExist(_ fileName: String) -> Bool
 }
 
 final class GalleryViewModel {
@@ -34,5 +35,13 @@ extension GalleryViewModel: GalleryViewModelProtocol {
             return UIImage()
         }
         return image
+    }
+    
+    func isFileExist(_ fileName: String) -> Bool {
+        if DataManager.shared.isFileExist(fileName) {
+            return true
+        } else {
+            return false
+        }
     }
 }
